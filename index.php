@@ -29,7 +29,7 @@ session_start();
                 </button>
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <div class="user-menu">
-                        <span class="icon user-icon active">👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                        <a href="account.php"><span class="icon user-icon active">👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span></a>
                         <a href="logout.php" class="logout-btn">Logout</a>
                     </div>
                 <?php else: ?>
