@@ -1,0 +1,260 @@
+.chat-widget {
+    position: absolute; /* Changed to fixed for consistent positioning */
+    top: 170px; /* Position below the button with some space */
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    transform: translateY(120%);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.chat-widget.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.chat-header {
+    background-color: #0078d7;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.chat-header .logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #0078d7;
+}
+
+/* Close button styling for chat header */
+.chat-close-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.chat-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 75%;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user {
+    align-self: flex-end;
+    background-color: #e3f2fd;
+    border-bottom-right-radius: 4px;
+}
+
+.assistant {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-input {
+    padding: 10px;
+    border-top: 1px solid #eaeaea;
+    display: flex;
+}
+
+.chat-input form {
+    display: flex;
+    width: 100%;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-input button {
+    margin-left: 10px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-input button:hover {
+    background-color: #006cc1;
+}
+
+.chat-toggle-btn {
+    position: absolute; /* Changed to fixed for consistent positioning */
+    top: 600px; /* Positioned at bottom instead of top */
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    /* Float animation */
+    animation: float 3s ease-in-out infinite;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hide toggle button when chat is active */
+.chat-toggle-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Floating animation for the button */
+@keyframes float {
+    0% {
+        transform: translateY(0px) scale(1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.chat-toggle-btn:hover {
+    background-color: #006cc1;
+    animation: pulse 1.5s infinite;
+}
+
+/* Pulse animation on hover */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.chat-toggle-btn.active {
+    transform: rotate(45deg);
+    animation: none;
+}
+
+/* Make the button glow occasionally to attract attention */
+.chat-toggle-btn::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 120, 215, 0.4);
+    z-index: -1;
+    animation: glow 4s ease-in-out infinite;
+    opacity: 0;
+}
+
+@keyframes glow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.3;
+    }
+}
+
+/* Add a slight bounce animation to make the button more noticeable */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.chat-toggle-btn:hover {
+    background-color: #006cc1;
+    transform: scale(1.05);
+    animation: none; /* Stop bouncing on hover */
+}
+
+.chat-toggle-btn.active {
+    transform: rotate(45deg);
+}
+
+.chat-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
